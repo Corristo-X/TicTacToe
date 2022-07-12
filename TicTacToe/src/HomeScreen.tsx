@@ -4,41 +4,39 @@ import { Button, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 're
 import React, {Component,useState,useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Game3x3 from './src/Game3x3';
-import HomeScreen from './src/HomeScreen';
 
+
+const HomeScreen = ({navigation})=> {
 
   
-  const Stack = createNativeStackNavigator();
 
-  const MyStack = () =>{
-    return(
-      <NavigationContainer>
-        <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title:'Tic Tac Toe'}}
+  
+    return (
+    <View style={styles.container}>
+      <View>
+        <TouchableOpacity 
+        onPress={()=>navigation.navigate('Game3x3')}
+        style={styles.button}>
+        <Text style={styles.text} >Tic Tac Toe 3x3</Text>
+        </TouchableOpacity>
 
-        />
-          <Stack.Screen
-            name="Game3x3"
-            component = {Game3x3}
-            
-          />
-     
-          
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
+        <TouchableOpacity style={styles.button}>
+        <Text style={styles.text}>Tic Tac Toe 4x4</Text>
+        </TouchableOpacity>
 
-  }
-   
+        <TouchableOpacity style={styles.button}>
+        <Text style={styles.text}>Tic Tac Toe 5x5</Text>
+        </TouchableOpacity>
+       
+       
+        
+      </View>
       
+      
+    </View>
     
-    
-  
-  
+  );
+  }
 
   
 
@@ -77,6 +75,5 @@ const styles = StyleSheet.create({
   }
   
 });
-
-export default MyStack
       
+export default HomeScreen
