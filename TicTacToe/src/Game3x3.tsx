@@ -1,6 +1,6 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicatorBase, Button, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicatorBase, Button, Dimensions, ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import React, {Component,useState,useEffect} from 'react';
 import HomeScreen from './HomeScreen';
 
@@ -369,6 +369,21 @@ emptyMap = [
         </TouchableOpacity>
         
      </View>
+
+     <View>
+      <View style={styles.choose}>
+      <Text style={{fontSize:20,paddingTop:10,paddingBottom:10}}>Choose Circle OR Cross</Text>
+      </View>
+      <View style={styles.players}>
+      <Text style={{fontWeight:'bold'}}>PLAYER ONE</Text>
+      <Text style={{fontWeight:'bold'}}>PLAYER TWO</Text>
+      </View>
+      <View style={styles.players}>
+      <TouchableOpacity style={{width:100,height:100,backgroundColor:'orange'}}></TouchableOpacity>
+      <TouchableOpacity style={{width:100,height:100,backgroundColor:'orange'}}></TouchableOpacity>
+      </View>
+
+     </View>
       
       
     </View>
@@ -382,6 +397,20 @@ emptyMap = [
 
 
 const styles = StyleSheet.create({
+  choose:{
+    width:Dimensions.get('screen').width,
+    flexDirection:'row',
+    justifyContent:'space-around'
+    
+  },
+
+  players:{
+    flexDirection:'row',
+    width:Dimensions.get('screen').width,
+    justifyContent:'space-around',
+    paddingBottom:20
+    
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
