@@ -1,9 +1,10 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { Button, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, {Component,useState,useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 
 const HomeScreen = ({navigation})=> {
@@ -14,6 +15,7 @@ const HomeScreen = ({navigation})=> {
     return (
     <View style={styles.container}>
       <View>
+        
         <TouchableOpacity 
         onPress={()=>navigation.navigate('Game3x3')}
         style={styles.button}>
