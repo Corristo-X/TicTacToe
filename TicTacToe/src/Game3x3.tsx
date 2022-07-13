@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicatorBase, Button, Dimensions, ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import React, {Component,useState,useEffect} from 'react';
 import HomeScreen from './HomeScreen';
+import Cross from './Cross'
+import Circle from './Circle'
 
 let emptyMap = [
 ["","",""],
@@ -38,6 +40,8 @@ const Game3x3 = (navigation) =>{
   const [disabled7,setdisabled7] = useState(false)
   const [disabled8,setdisabled8] = useState(false)
   const [disabled9,setdisabled9] = useState(false)
+  const [settings,setsettings] = useState(false)
+  const [start,setstart] = useState(false)
 
  let posx
  let posy 
@@ -70,7 +74,51 @@ emptyMap = [
 
 }
 
+  function set(){
+    if(settings == false){
+      setsettings(true)
+    }
+    else
+    {
+      setsettings(false)
+    }
+    gamestart()
+  }
+  function setplayer(){
+    if(start == false){
+      setstart(true)
+    }
+    else
+    {
+      setstart(false)
+    }
+    gamestart()
+  }
+  function gamestart(){
+    reset()
+    if(settings==false && start == false)
+    {
+      i=0
+    }
+    if(settings==false && start == true)
+    {
+      i=-1
+    }
+    if(settings==true && start == false)
+    {
+      i=-1
+    }
+    if(settings==true && start == true)
+    {
+      i=0
+    }
+  
+    
+
+  }
+  
  const onPress = (posx,posy) => {
+    
 
     if (i<=8){
     if( i % 2 == 0 && posx == 0 && posy == 0)
@@ -191,7 +239,23 @@ emptyMap = [
       )
     {
         a=2
-        alert("Circle WON")
+        if(settings==true && start == false)
+        {
+          alert("PLAYER ONE WON")
+        }
+        if(settings==true && start == true){
+          alert("PLAYER ONE WON")
+        }
+        if(settings==false && start == false)
+        {
+          alert("PLAYER TWO WON")
+        }
+        if(settings==false && start == true){
+          alert("PLAYER TWO WON")
+        }
+        
+      
+
         reset()
     }
     if(emptyMap[0][0]=='x' && emptyMap[1][0]=='x' && emptyMap[2][0]=='x' ||
@@ -204,7 +268,23 @@ emptyMap = [
     emptyMap[2][0]=='x' && emptyMap[1][1]=='x' && emptyMap[0][2]=='x')
     {
         a=2
-        alert("CROSS WON")
+        if(settings==false && start == false)
+        {
+          alert("PLAYER ONE WON")
+        }
+        if(settings==false && start == true){
+          alert("PLAYER ONE WON")
+        }
+        if(settings==true && start == false)
+        {
+          alert("PLAYER TWO WON")
+        }
+        if(settings==true && start == true){
+          alert("PLAYER TWO WON")
+        }
+      
+        
+     
         reset()
     }
     if(i==8 && a==1){
@@ -379,9 +459,40 @@ emptyMap = [
       <Text style={{fontWeight:'bold'}}>PLAYER TWO</Text>
       </View>
       <View style={styles.players}>
-      <TouchableOpacity style={{width:100,height:100,backgroundColor:'orange'}}></TouchableOpacity>
-      <TouchableOpacity style={{width:100,height:100,backgroundColor:'orange'}}></TouchableOpacity>
+      <TouchableOpacity onPress={()=>set()}
+      style={{width:100,height:100,backgroundColor:'orange'}}>
+            {settings == false &&
+        <Cross />
+            }
+            {settings == true &&
+        <Circle/>
+            }
+      </TouchableOpacity>
+      <TouchableOpacity
+      onPress={()=>set()}
+      style={{width:100,height:100,backgroundColor:'orange'}}>
+        {settings == false &&
+        <Circle/>
+        }
+        {settings == true &&
+        <Cross/>
+        } 
+      
+        </TouchableOpacity>
+
       </View>
+      <View style={styles.players}>
+        {start == false &&
+        <Text style={{color:'red',fontSize:15}}>Player one starts</Text>
+        }
+        {start == true &&
+        <Text style={{color:'red',fontSize:15}}> Player two starts</Text>
+        }
+      </View>
+      <Button
+      onPress={()=>setplayer()}
+        title='select the player who starts the game'
+      ></Button>
 
      </View>
       
