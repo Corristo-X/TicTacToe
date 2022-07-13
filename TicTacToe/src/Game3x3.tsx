@@ -1,17 +1,41 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicatorBase, Button, Dimensions, ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicatorBase, Button, Dimensions, ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import React, {Component,useState,useEffect} from 'react';
 import HomeScreen from './HomeScreen';
 import Cross from './Cross'
 import Circle from './Circle'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let emptyMap = [
 ["","",""],
 ["","",""],
 ["","",""]
 ]
+let wynik ={
+  player1:{
+    player1:'',
+    score:0
+  },
+  player2:{
+    player2:'',
+    score:0
+  },
+  playersinitals:''
 
+}
+let readwynik ={
+  player1:{
+    player1:'',
+    score:0
+  },
+  player2:{
+    player2:'',
+    score:0
+  },
+  playersinitals:''
+
+}
 let i=0
 let a=1
 const Game3x3 = (navigation) =>{
@@ -42,6 +66,11 @@ const Game3x3 = (navigation) =>{
   const [disabled9,setdisabled9] = useState(false)
   const [settings,setsettings] = useState(false)
   const [start,setstart] = useState(false)
+  const [player1,setplayer1] = useState('')
+  const [player2,setplayer2] = useState('')
+  const [player1score,setplayer1score]=useState(0)
+  const [player2score,setplayer2score]=useState(0)
+  const [playersinitals,setplayerinitals]=useState('')
 
  let posx
  let posy 
@@ -73,6 +102,63 @@ emptyMap = [
     ]
 
 }
+function setstoredata(){
+  wynik.player1.player1=player1
+  wynik.player2.player2=player2
+  wynik.player1.score=player1score
+  wynik.player2.score=player2score
+  wynik.playersinitals=playersinitals
+  storeData(wynik)
+}
+function getstoredata(){
+  if(readwynik.playersinitals==playersinitals)
+  {
+  setplayer1(readwynik.player1.player1)
+  setplayer2(readwynik.player2.player2)
+  setplayer1score(readwynik.player1.score)
+  setplayer2score(readwynik.player2.score)
+  }
+  else
+  {
+    alert("brak wynikow")
+  }
+  
+}
+const storeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem(playersinitals, jsonValue)
+  } catch (e) {
+    // saving error
+  }
+}
+
+const getData = async (value) => {
+  if (value!==null){
+    
+    try {
+      const jsonValue = await AsyncStorage.getItem(value)
+      if(jsonValue !== null){
+      console.log(JSON.parse(jsonValue))
+      readwynik = JSON.parse(jsonValue)
+     
+      getstoredata()
+      
+      }
+      //return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch(e) {
+      // error reading value
+    }
+  }
+  else
+  {
+    alert("podaj imie pierwszego zawodnika")
+  }
+
+  
+}
+
+
 
   function set(){
     if(settings == false){
@@ -112,9 +198,6 @@ emptyMap = [
     {
       i=0
     }
-  
-    
-
   }
   
  const onPress = (posx,posy) => {
@@ -242,16 +325,24 @@ emptyMap = [
         if(settings==true && start == false)
         {
           alert("PLAYER ONE WON")
+          setplayer1score(player1score+1)
+          wynik.player1.score=player1score+1
         }
         if(settings==true && start == true){
           alert("PLAYER ONE WON")
+          setplayer1score(player1score+1)
+          wynik.player1.score=player1score+1
         }
         if(settings==false && start == false)
         {
           alert("PLAYER TWO WON")
+          setplayer2score(player2score+1)
+          wynik.player2.score=player2score+1
         }
         if(settings==false && start == true){
           alert("PLAYER TWO WON")
+          setplayer2score(player2score+1)
+          wynik.player2.score=player2score+1
         }
         
       
@@ -271,16 +362,24 @@ emptyMap = [
         if(settings==false && start == false)
         {
           alert("PLAYER ONE WON")
+          setplayer1score(player1score+1)
+          wynik.player1.score=player1score+1
         }
         if(settings==false && start == true){
           alert("PLAYER ONE WON")
+          setplayer1score(player1score+1)
+          wynik.player1.score=player1score+1
         }
         if(settings==true && start == false)
         {
           alert("PLAYER TWO WON")
+          setplayer2score(player2score+1)
+          wynik.player2.score=player2score+1
         }
         if(settings==true && start == true){
           alert("PLAYER TWO WON")
+          setplayer2score(player2score+1)
+          wynik.player2.score=player2score+1
         }
       
         
@@ -451,12 +550,39 @@ emptyMap = [
      </View>
 
      <View>
-      <View style={styles.choose}>
-      <Text style={{fontSize:20,paddingTop:10,paddingBottom:10}}>Choose Circle OR Cross</Text>
+      <View style={styles.players}>
+      <Text style={{fontWeight:'bold',marginTop:5}}>PLAYER ONE</Text>
+      <Text style={{fontWeight:'bold',marginTop:5}}>PLAYER TWO</Text>
       </View>
       <View style={styles.players}>
-      <Text style={{fontWeight:'bold'}}>PLAYER ONE</Text>
-      <Text style={{fontWeight:'bold'}}>PLAYER TWO</Text>
+      <TextInput placeholder='enter name' 
+      style={{width:110,height:40,textAlign:'center',borderWidth:1,borderColor:'orange',
+      borderRadius:5
+    }}
+      onChangeText={(text)=>[setplayer1(text),
+      setplayer1score(0),
+      setplayer2score(0)
+      ]}
+      />
+      <TextInput placeholder='enter name'
+      style={{width:110,height:40,textAlign:'center',borderWidth:1,borderColor:'orange',
+      borderRadius:5
+    }}
+    onChangeText={(text)=>[setplayer2(text),
+      setplayer1score(0),
+      setplayer2score(0)
+  ]}
+      />
+      
+      </View>
+      <View style={styles.players}>
+    <Text style={{width:110,textAlign:'center',fontSize:20,fontWeight:'bold',marginLeft:45}}>
+      {player1}</Text>
+      <Text style={{paddingLeft:20,fontSize:20}}>{player1score}</Text>
+      <Text style={{fontSize:20}}>:</Text>
+      <Text style={{paddingRight:20,fontSize:20}}>{player2score}</Text>
+    <Text style={{width:110,textAlign:'center',fontSize:20,fontWeight:'bold',marginRight:45}}>
+      {player2}</Text>
       </View>
       <View style={styles.players}>
       <TouchableOpacity onPress={()=>set()}
@@ -483,16 +609,36 @@ emptyMap = [
       </View>
       <View style={styles.players}>
         {start == false &&
-        <Text style={{color:'red',fontSize:15}}>Player one starts</Text>
+        <Text style={{color:'red',fontSize:25}}>Player one starts</Text>
         }
         {start == true &&
-        <Text style={{color:'red',fontSize:15}}> Player two starts</Text>
+        <Text style={{color:'red',fontSize:25}}> Player two starts</Text>
         }
+      </View>
+      <View style={styles.players}>
+      <Text 
+      
+      style={{width:130,height:90,fontSize:17,fontWeight:'bold'}}>
+        Give initials to save and load the result</Text>
+      <TextInput
+      onChangeText={(text)=>setplayerinitals(text)}
+      placeholder='enter initials'
+      style={{width:110,height:40,borderWidth:1,borderColor:'orange',
+      borderRadius:5,textAlign:'center',fontSize:15}}
+      />
       </View>
       <Button
       onPress={()=>setplayer()}
         title='select the player who starts the game'
       ></Button>
+      <Button
+      onPress={()=>[setstoredata()]}
+      title='save the result'
+      ></Button>
+      <Button
+        title='load the result'
+        onPress={()=>getData(playersinitals)}
+      />
 
      </View>
       
@@ -519,7 +665,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     width:Dimensions.get('screen').width,
     justifyContent:'space-around',
-    paddingBottom:20
+    paddingBottom:10
     
   },
   container: {
@@ -536,7 +682,7 @@ const styles = StyleSheet.create({
    
     width:100,
     height:100,
-    backgroundColor:'yellow',
+    backgroundColor:'#1a7d0c',
     borderWidth:2,
     
   },
