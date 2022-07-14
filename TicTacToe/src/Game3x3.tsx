@@ -44,6 +44,10 @@ const Game3x3 = (navigation) =>{
     reset()
 
    },[])
+   useEffect(()=>{
+      setstoredata()
+
+   },[wynik.player1.score,wynik.player2.score])
     
   const [visible,setvisible] =useState(0)
   const [visible2,setvisible2] =useState(0)
@@ -54,7 +58,6 @@ const Game3x3 = (navigation) =>{
   const [visible7,setvisible7] =useState(0)
   const [visible8,setvisible8] =useState(0)
   const [visible9,setvisible9] =useState(0)
-
   const [disabled,setdisabled] = useState(false)
   const [disabled2,setdisabled2] = useState(false)
   const [disabled3,setdisabled3] = useState(false)
@@ -109,6 +112,7 @@ function setstoredata(){
   wynik.player2.score=player2score
   wynik.playersinitals=playersinitals
   storeData(wynik)
+  console.log(wynik)
 }
 function getstoredata(){
   if(readwynik.playersinitals==playersinitals)
@@ -343,6 +347,7 @@ const getData = async (value) => {
           alert("PLAYER TWO WON")
           setplayer2score(player2score+1)
           wynik.player2.score=player2score+1
+           
         }
         reset()
     }
@@ -571,23 +576,21 @@ const getData = async (value) => {
         Give initials to save and load the result</Text>
       <TextInput
       onChangeText={(text)=>setplayerinitals(text)}
+      onEndEditing={()=>getData(playersinitals)}
       placeholder='enter initials'
       style={{width:110,height:40,borderWidth:1,borderColor:'orange',
       borderRadius:5,textAlign:'center',fontSize:15}}
       />
       </View>
-      <Button
+      <View style={styles.players}>
+      <TouchableOpacity style={{width:250,height:55,backgroundColor:"white",
+    borderWidth:1,borderRadius:5,borderColor:'orange'
+    }}
       onPress={()=>setplayer()}
-        title='select the player who starts the game'
-      ></Button>
-      <Button
-      onPress={()=>[setstoredata()]}
-      title='save the result'
-      ></Button>
-      <Button
-        title='load the result'
-        onPress={()=>getData(playersinitals)}
-      />
+        >
+          <Text style={{textAlign:'center',fontSize:20,color:'black',fontWeight:'bold'}}>Select the player who starts the game</Text>
+        </TouchableOpacity>
+        </View>
      </View>  
     </View>
     </ScrollView> 
