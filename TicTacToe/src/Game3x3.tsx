@@ -344,9 +344,6 @@ const getData = async (value) => {
           setplayer2score(player2score+1)
           wynik.player2.score=player2score+1
         }
-        
-      
-
         reset()
     }
     if(emptyMap[0][0]=='x' && emptyMap[1][0]=='x' && emptyMap[2][0]=='x' ||
@@ -381,52 +378,39 @@ const getData = async (value) => {
           setplayer2score(player2score+1)
           wynik.player2.score=player2score+1
         }
-      
-        
-     
         reset()
     }
     if(i==8 && a==1){
         alert("remis")
         reset()
-    
       }
-
 }
     return (
         <ScrollView>
     <View style={styles.container}>
      <View style={styles.view}>
-        
      <TouchableOpacity 
         disabled={disabled}
         onPress={()=>onPress(posx=0,posy=0)}
         style={styles.game}>
             { visible == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+           <Cross/>
             }
-
         </TouchableOpacity>
         <TouchableOpacity 
         disabled={disabled2}
         onPress={()=>onPress(posx=0,posy=1)}
         style={styles.game}>
             { visible2 == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible2 == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+          <Cross/>
             }
         </TouchableOpacity>
         <TouchableOpacity 
@@ -434,16 +418,12 @@ const getData = async (value) => {
         onPress={()=>onPress( posx=0,posy=2)}
         style={styles.game}>
             { visible3 == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible3 == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+             <Cross/>
             }
-
         </TouchableOpacity>
      </View>
      <View style={styles.view}>
@@ -452,50 +432,37 @@ const getData = async (value) => {
         onPress={()=>onPress(posx=1,posy=0)}
         style={styles.game}>
             { visible4 == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible4 == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+             <Cross/>
             }
-
         </TouchableOpacity>
         <TouchableOpacity 
         disabled={disabled5}
         onPress={()=>onPress(posx=1,posy=1)}
         style={styles.game}>
             { visible5 == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible5 == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+             <Cross/>
             }
-
         </TouchableOpacity>
         <TouchableOpacity 
         disabled={disabled6}
         onPress={()=>onPress(posx=1,posy=2)}
         style={styles.game}>
             { visible6 == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible6 == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+             <Cross/>
             }
-
         </TouchableOpacity>
-
      </View>
      <View style={styles.view}>
      <TouchableOpacity 
@@ -503,52 +470,38 @@ const getData = async (value) => {
         onPress={()=>onPress(posx=2,posy=0)}
         style={styles.game}>
             { visible7 == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible7 == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+             <Cross/>
             }
-
         </TouchableOpacity>
         <TouchableOpacity 
         disabled={disabled8}
         onPress={()=>onPress(posx=2,posy=1)}
         style={styles.game}>
             { visible8 == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible8 == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+             <Cross/>
             }
-
         </TouchableOpacity>
         <TouchableOpacity 
         disabled={disabled9}
         onPress={()=>onPress(posx=2,posy=2)}
         style={styles.game}>
             { visible9 == 1 &&
-           <View style={[styles.cell,{display:'flex'}]}></View>
+           <Circle/>
             }
             {
              visible9 == 2 &&
-            <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+             <Cross/>
             }
-
         </TouchableOpacity>
-        
      </View>
-
      <View>
       <View style={styles.players}>
       <Text style={{fontWeight:'bold',marginTop:5}}>PLAYER ONE</Text>
@@ -573,7 +526,6 @@ const getData = async (value) => {
       setplayer2score(0)
   ]}
       />
-      
       </View>
       <View style={styles.players}>
     <Text style={{width:110,textAlign:'center',fontSize:20,fontWeight:'bold',marginLeft:45}}>
@@ -603,9 +555,7 @@ const getData = async (value) => {
         {settings == true &&
         <Cross/>
         } 
-      
         </TouchableOpacity>
-
       </View>
       <View style={styles.players}>
         {start == false &&
@@ -617,7 +567,6 @@ const getData = async (value) => {
       </View>
       <View style={styles.players}>
       <Text 
-      
       style={{width:130,height:90,fontSize:17,fontWeight:'bold'}}>
         Give initials to save and load the result</Text>
       <TextInput
@@ -639,34 +588,22 @@ const getData = async (value) => {
         title='load the result'
         onPress={()=>getData(playersinitals)}
       />
-
-     </View>
-      
-      
+     </View>  
     </View>
-    </ScrollView>
-    
+    </ScrollView> 
   );
-  
     }
-
-  
-
-
 const styles = StyleSheet.create({
   choose:{
     width:Dimensions.get('screen').width,
     flexDirection:'row',
     justifyContent:'space-around'
-    
   },
-
   players:{
     flexDirection:'row',
     width:Dimensions.get('screen').width,
     justifyContent:'space-around',
     paddingBottom:10
-    
   },
   container: {
     flex: 1,
@@ -679,51 +616,14 @@ const styles = StyleSheet.create({
     height:50
   },
   game:{
-   
     width:100,
     height:100,
     backgroundColor:'#1a7d0c',
     borderWidth:2,
-    
   },
   view:{
     flexDirection:'row'
 
-  },
-  cell:{
-    
-    flex: 1,
-    
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 10,
-   
-    borderWidth: 10,
-    borderColor: "white",
-  },
-  cross: {
-    flex: 1,
-  },
-  crossLine: {
-    position: "absolute",
-    left: "48%",
-    width: 10,
-    height: "100%",
-    backgroundColor: "white",
-    borderRadius: 5,
-    transform: [
-      {
-        rotate: "45deg",
-      },
-    ],
-  },
-  crossLineReversed: {
-    transform: [
-      {
-        rotate: "-45deg",
-      },
-    ],
   },
 });
 export default Game3x3
